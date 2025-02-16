@@ -1,4 +1,4 @@
-# eh
+# Encrypt Health Center
 
 A new Flutter project.
 
