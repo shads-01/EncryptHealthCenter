@@ -7,9 +7,8 @@ class Appointmentlist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Appointments"),
+        title: Text("My Appointments"),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 138, 201, 250),
       )
     );
   }

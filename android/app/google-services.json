@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016878610852",
+    "project_id": "encrypt-health-center-5ad3f",
+    "storage_bucket": "encrypt-health-center-5ad3f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016878610852:android:9de2fe4f9e5cb2e2436931",
+        "android_client_info": {
+          "package_name": "com.example.eh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6kODgKSsAlcCDDtuIo3EojSAzSbm5LDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

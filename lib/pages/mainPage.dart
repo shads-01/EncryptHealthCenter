@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     SearchPage(),
     Appointmentlist(),
-    Userprofile()
+    UserProfile()
   ];
 
   @override
@@ -64,7 +64,11 @@ class _MainPageState extends State<MainPage> {
                 label: 'Appointments',
                 tooltip: '',
               ),
-              NavigationDestination(icon: Icon(Icons.person), label: 'Profile')
+              NavigationDestination(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+                tooltip: '',
+              ),
             ],
           ),
         ),
