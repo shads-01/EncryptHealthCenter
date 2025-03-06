@@ -1,0 +1,2 @@
+E:/Study/Encrypt Health Center/android/app/.cxx/Debug/4z52215c/x86/CMakeFiles/edit_cache.dir
+E:/Study/Encrypt Health Center/android/app/.cxx/Debug/4z52215c/x86/CMakeFiles/rebuild_cache.dir

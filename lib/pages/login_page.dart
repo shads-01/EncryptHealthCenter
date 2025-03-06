@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eh/components/my_button.dart';
 import 'package:eh/components/my_textfield.dart';
 import 'package:eh/components/square_tile.dart';
-import 'package:eh/pages/mainPage.dart';
 import 'package:eh/pages/RegisterPage.dart';
+import 'mainPage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,15 +28,32 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     super.dispose();
   }
 
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signUserIn() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const MainPage()),
-    );
+  Future<void> signUserIn() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      print("Login successful: ${userCredential.user!.email}");
+
+      // Navigate to the main page after login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainPage()),
+      );
+
+    } catch (e) {
+      print("Error during login: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,32 +66,32 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-          
+
                 Image.asset(
-                'lib/images/ehc.png',
-                    height: 120,
+                  'lib/images/ehc.png',
+                  height: 120,
                 ),
-          
+
                 const SizedBox(height: 50),
-          
+
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: 'Username',
                   obscureText: false,
                 ),
-          
+
                 const SizedBox(height: 10),
-          
+
                 // password textfield
                 MyTextField(
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
-          
+
                 const SizedBox(height: 10),
-          
+
                 // forgot password?
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -87,17 +105,20 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 25),
-          
+
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
+                  onTap: () async {
+                    await signUserIn();
+                  },
                   text: "Sign in",
                 ),
-          
+
+
                 const SizedBox(height: 50),
-          
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -125,25 +146,25 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 50),
-          
+
                 // google + apple sign in buttons
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
                     SquareTile(imagePath: 'lib/images/google.png'),
-          
+
                     SizedBox(width: 25),
-          
+
                     // apple button
                     SquareTile(imagePath: 'lib/images/facebook.png')
                   ],
                 ),
-          
+
                 const SizedBox(height: 50),
-          
+
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
