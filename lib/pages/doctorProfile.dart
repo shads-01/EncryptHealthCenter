@@ -117,7 +117,7 @@ class DoctorProfile extends StatelessWidget {
                     Icon(Icons.access_time_rounded),
                     SizedBox(width: 8),
                     Text(
-                      'Working Hours: ${doctorData['openHour'] ?? 'N/A'} - ${doctorData['closeHour'] ?? 'N/A'}',
+                      'Working Hours: ${doctorData['openHour'] ?? 'N/A'}',
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
