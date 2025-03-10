@@ -24,8 +24,10 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> fetchUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      DocumentSnapshot userDoc =
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
       if (userDoc.exists) {
         setState(() {
           firstName = userDoc["First Name"] ?? "";
@@ -40,7 +42,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsetsDirectional.only(top: 60),
+        margin: EdgeInsetsDirectional.only(top: 80),
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,8 +77,6 @@ class _UserProfileState extends State<UserProfile> {
                   SizedBox(height: 10),
                   buildProfileButton('Settings', Icons.settings),
                   SizedBox(height: 10),
-                  buildProfileButton('Favorite', Icons.favorite),
-                  SizedBox(height: 10),
                   buildProfileButton('Appointment History', Icons.description),
                   SizedBox(height: 10),
                   buildProfileButton('Medical History', Icons.history),
@@ -85,8 +85,15 @@ class _UserProfileState extends State<UserProfile> {
                 ],
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 35),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue[400],
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                ),
+              ),
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(
@@ -97,9 +104,13 @@ class _UserProfileState extends State<UserProfile> {
               child: Text(
                 'Log Out',
                 style: TextStyle(
-                    fontSize: 15, color: Color.fromARGB(255, 13, 51, 82), fontWeight: FontWeight.w700),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white, // Ensures text contrasts well with the background
+                ),
               ),
             ),
+
           ],
         ),
       ),
@@ -125,9 +136,7 @@ Widget buildProfileButton(String title, IconData icon) {
           child: Text(
             title,
             style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.w400),
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400),
           ),
         ),
         Icon(Icons.arrow_forward_ios_rounded, size: 16),

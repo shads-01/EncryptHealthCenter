@@ -24,7 +24,7 @@ class _TopRatedListState extends State<TopRatedList> {
             );
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: 8,
             itemBuilder: (context, index) {
               DocumentSnapshot doctor =
                   snapshot.data?.docs[index] as DocumentSnapshot<Object?>;
@@ -37,7 +37,7 @@ class _TopRatedListState extends State<TopRatedList> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Container(
-                    padding: EdgeInsets.only(left: 8, right: 8, top: 0),
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 0),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 10,
                     child: TextButton(
@@ -53,64 +53,64 @@ class _TopRatedListState extends State<TopRatedList> {
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircleAvatar(
                             backgroundImage: AssetImage(doctor['image']),
-                            //backgroundColor: Colors.blue,
                             radius: 25,
                           ),
-                          SizedBox(
-                            width: 20,
+                          const SizedBox(width: 10),
+
+                          // Wrap Name and Specification inside Expanded to prevent overflow
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  doctor['name'],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                  overflow:
+                                      TextOverflow.ellipsis, // Prevent overflow
+                                  maxLines: 1, // Show only one line
+                                ),
+                                Text(
+                                  doctor['specification'],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
+                                  overflow:
+                                      TextOverflow.ellipsis, // Prevent overflow
+                                  maxLines: 1, // Show only one line
+                                ),
+                              ],
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+
+                          const SizedBox(width: 10),
+
+                          // Rating Section
+                          Row(
                             children: [
+                              Icon(
+                                Icons.star,
+                                size: 20,
+                                color: Colors.indigo[400],
+                              ),
+                              const SizedBox(width: 3),
                               Text(
-                                doctor['name'],
-                                style: TextStyle(
+                                doctor['rating'].toString(),
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.black87,
+                                  fontSize: 15,
+                                  color: Colors.indigo,
                                 ),
                               ),
-                              Text(
-                                doctor['specification'],
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black54),
-                              ),
                             ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                    color: Colors.indigo[400],
-                                  ),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text(
-                                    doctor['rating'].toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.indigo,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),

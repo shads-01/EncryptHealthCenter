@@ -29,17 +29,18 @@ class DoctorProfile extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (!snapshot.hasData || !snapshot.data!.exists) {
+            print(snapshot);
             return const Center(child: Text('Doctor not found'));
           }
 
           var doctorData = snapshot.data!.data() as Map<String, dynamic>;
 
           return Padding(
-            padding: EdgeInsets.all(25.0),
+            padding: const EdgeInsets.all(25.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 CircleAvatar(
                     radius: 100,
                     backgroundImage: AssetImage(
@@ -138,7 +139,7 @@ class DoctorProfile extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BookingScreen(doctorName: doctorData['name'] ?? ''),
+                          builder: (context) => BookingScreen(doctorName: doctorData['name'] ?? '', doctorSpecification: doctorData['specification'] ?? '', docId: doctorData['docId'] ?? ''),
                         ),
                       );
                     },
