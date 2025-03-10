@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:eh/pages/login_page.dart';
+import 'login_page.dart';
+import 'editProfile.dart'; // Make sure this import is correct
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -42,56 +43,68 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsetsDirectional.only(top: 80),
-        padding: EdgeInsets.all(16.0),
+        margin: const EdgeInsets.only(top: 80),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREmaQdvWJzdLZ2M0QpDmDxHXY5K_5Uz2ZSNg&s'),
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREmaQdvWJzdLZ2M0QpDmDxHXY5K_5Uz2ZSNg&s',
+              ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               "$firstName $lastName",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey,
+              ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               email,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Container(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                  buildProfileButton('Edit Profile', Icons.edit),
-                  SizedBox(height: 10),
-                  buildProfileButton('Settings', Icons.settings),
-                  SizedBox(height: 10),
-                  buildProfileButton('Appointment History', Icons.description),
-                  SizedBox(height: 10),
-                  buildProfileButton('Medical History', Icons.history),
-                  SizedBox(height: 10),
-                  buildProfileButton('Help and Support', Icons.help),
+                  buildProfileButton(
+                    'Edit Profile',
+                    Icons.edit,
+                        () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EditProfilePage()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  buildProfileButton('Settings', Icons.settings, () {}),
+                  const SizedBox(height: 10),
+                  buildProfileButton('Appointment History', Icons.description, () {}),
+                  const SizedBox(height: 10),
+                  buildProfileButton('Medical History', Icons.history, () {}),
+                  const SizedBox(height: 10),
+                  buildProfileButton('Help and Support', Icons.help, () {}),
                 ],
               ),
             ),
-            SizedBox(height: 35),
+            const SizedBox(height: 35),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue[400],
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () async {
@@ -101,46 +114,48 @@ class _UserProfileState extends State<UserProfile> {
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Log Out',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white, // Ensures text contrasts well with the background
+                  color: Colors.white,
                 ),
               ),
             ),
-
           ],
         ),
       ),
     );
   }
-}
 
-Widget buildProfileButton(String title, IconData icon) {
-  return ElevatedButton(
-    onPressed: () {},
-    style: ElevatedButton.styleFrom(
-      elevation: 0,
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-    child: Row(
-      children: [
-        Icon(icon, color: Colors.blueAccent),
-        SizedBox(width: 16),
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400),
-          ),
+  Widget buildProfileButton(String title, IconData icon, VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        Icon(Icons.arrow_forward_ios_rounded, size: 16),
-      ],
-    ),
-  );
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.blueAccent),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+        ],
+      ),
+    );
+  }
 }

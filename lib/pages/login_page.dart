@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eh/components/my_button.dart';
 import 'package:eh/components/my_textfield.dart';
-import 'package:eh/components/square_tile.dart';
 import 'package:eh/pages/RegisterPage.dart';
 import 'mainPage.dart';
 
@@ -38,14 +37,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         password: passwordController.text.trim(),
       );
 
-      print("Login successful: ${userCredential.user!.email}");
+      print("Login successful: \${userCredential.user!.email}");
 
-      // Navigate to the main page after login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainPage()),
       );
-
     } catch (e) {
       print("Error during login: $e");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -54,27 +51,25 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 30),
+                const SizedBox(height: 80),
 
                 Image.asset(
                   'lib/images/ehc.png',
                   height: 120,
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 80),
 
-                // username textfield
                 MyTextField(
                   controller: emailController,
                   hintText: 'Username',
@@ -83,32 +78,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
                 const SizedBox(height: 10),
 
-                // password textfield
                 MyTextField(
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ),
 
-                const SizedBox(height: 10),
-
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                ),
-
                 const SizedBox(height: 25),
 
-                // sign in button
                 MyButton(
                   onTap: () async {
                     await signUserIn();
@@ -116,10 +93,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                   text: "Sign in",
                 ),
 
-
                 const SizedBox(height: 50),
 
-                // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -128,13 +103,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         child: Divider(
                           thickness: 0.5,
                           color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey[700]),
                         ),
                       ),
                       Expanded(
@@ -149,23 +117,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
                 const SizedBox(height: 50),
 
-                // google + apple sign in buttons
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google button
-                    SquareTile(imagePath: 'lib/images/google.png'),
-
-                    SizedBox(width: 25),
-
-                    // apple button
-                    SquareTile(imagePath: 'lib/images/facebook.png')
-                  ],
-                ),
-
-                const SizedBox(height: 50),
-
-                // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -175,7 +126,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => RegisterPage()),

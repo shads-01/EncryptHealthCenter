@@ -176,6 +176,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 validator: (value) => value != passwordController.text ? "Passwords do not match" : null,
               ),
               const SizedBox(height: 10),
+              TextFormField(
+                controller: addressController,
+                decoration: const InputDecoration(labelText: "Present Address"),
+                validator: (value) => value!.isEmpty ? "Address is required" : null,
+              ),
+              const SizedBox(height: 10),
               MyButton(
                 onTap: registerUser,
                 text: "Register",

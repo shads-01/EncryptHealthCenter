@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'pages/login_page.dart';
+import 'pages/splash_screen.dart';
 
 void main() async
 {
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: const AnimatedSplashScreenWidget(),
     );
   }
 }
