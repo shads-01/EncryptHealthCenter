@@ -48,6 +48,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           bloodGroup = userDoc['Blood Group'] ?? '';
 
           String dobStr = userDoc['Date of Birth'] ?? '';
+          print("Fetched DOB from Firestore: $dobStr");
+
           if (dobStr.isNotEmpty) {
             try {
               dob = DateFormat('dd/MM/yyyy').parse(dobStr);
